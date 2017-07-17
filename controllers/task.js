@@ -1,7 +1,4 @@
-var express = require('express');
-var router = express.Router();
-
-router.get('/createTask', function(req, res) {
+exports.createTask = function(req, res) {
     var newTask = new Task();
     
     newTask.save(function(err, data) {
@@ -12,9 +9,9 @@ router.get('/createTask', function(req, res) {
             res.redirect('/task/' + data._id);
         }
     })
-});
+};
 
-router.get('/task/:id', function(req, res) {
+exports.getTask = function(req, res) {
     if (req.isAuthenticated()) {
         if (req.params.id) {
         Task.findOne({_id: req.params.id}, function(err, data) {
@@ -34,7 +31,4 @@ router.get('/task/:id', function(req, res) {
     } else {
         res.render('error');
     }
-    
-});
-
-module.exports = router;
+}

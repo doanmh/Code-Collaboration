@@ -1,24 +1,13 @@
-var express = require('express');
-var router = express.Router();
 var nodemailer = require('nodemailer');
-var config = require('../config.js');
+var config = require('../config/config.js');
 
 var transporter = nodemailer.createTransport(config.mailer);
 
-/* TODO
-  
-  Move all the route to the app.js file
- */
-
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
-router.route('/contact')
-  .get(function(req, res, next) {
+exports.getContact = function(req, res) {
     res.render('contact', { title: 'Code Collaboration'});
-  })
-  .post(function(req, res, next) {
+};
+
+exports.postContact = function(req, res) {
     req.checkBody('name', 'Empty name').notEmpty();
     req.checkBody('email', 'Invalid email').isEmail();
     req.checkBody('message', 'Empty message').notEmpty();
@@ -45,6 +34,4 @@ router.route('/contact')
         res.render('thank', { title: 'Code Collaboration'});
       });
     }
-  });
-
-module.exports = router;
+}

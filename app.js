@@ -5,17 +5,19 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var expressValidator = require('express-validator');
+var http = require('http');
 
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
 
-require('./passport');
-var config = require('./config.js');
+var indexController = require('./controllers/index');
+var contactController = require('./controllers/contact');
+var authController = require('./controllers/auth');
+var taskController = require('./controllers/task');
 
-var indexRoute = require('./routes/index');
-var authRoute = require('./routes/auth');
-var taskRoute = require('./routes/task');
+require('./config/passport');
+var config = require('./config/config.js');
 
 mongoose.connect(config.dbConnString);
 global.User = require('./models/user');
@@ -52,9 +54,19 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/', indexRoute);
-app.use('/', authRoute);
-app.use('/', taskRoute);
+/**
+ * ROUTING
+ */ 
+app.get('/', indexController.getIndex);
+app.get('/contact', contactController.getContact);
+app.post('/contact', contactController.postContact);
+app.get('/login', authController.getLogin);
+app.post('/login', authController.postLogin);
+app.get('/register', authController.getRegister);
+app.post('/register', authController.postRegister);
+app.get('/logout', authController.getLogout);
+app.get('/createTask', taskController.createTask);
+app.get('/task/:id', taskController.getTask);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -73,5 +85,11 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+var port = process.env.PORT || 3000;
+app.set('port', port);
+var server = http.createServer(app);
+require('./socket-server')(server);
+server.listen(port);
 
 module.exports = app;
