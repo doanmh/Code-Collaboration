@@ -47,7 +47,7 @@ app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   if (req.isAuthenticated()) {
     res.locals.user = req.user;
   }
@@ -56,7 +56,7 @@ app.use(function(req, res, next) {
 
 /**
  * ROUTING
- */ 
+ */
 app.get('/', indexController.getIndex);
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
@@ -69,14 +69,14 @@ app.get('/createTask', taskController.createTask);
 app.get('/task/:id', taskController.getTask);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

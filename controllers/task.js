@@ -1,7 +1,7 @@
-exports.createTask = function(req, res) {
+exports.createTask = function (req, res) {
     var newTask = new Task();
-    
-    newTask.save(function(err, data) {
+
+    newTask.save(function (err, data) {
         if (err) {
             console.log(err);
             res.render('error');
@@ -11,20 +11,20 @@ exports.createTask = function(req, res) {
     })
 };
 
-exports.getTask = function(req, res) {
+exports.getTask = function (req, res) {
     if (req.isAuthenticated()) {
         if (req.params.id) {
-        Task.findOne({_id: req.params.id}, function(err, data) {
-            if (err) {
-                console.log(err);
-                res.render('error');
-            } 
-            if (data) {
-                res.render('task', {content: data.content, roomId: data.id});
-            } else {
-                res.render('error');
-            }
-        });
+            Task.findOne({ _id: req.params.id }, function (err, data) {
+                if (err) {
+                    console.log(err);
+                    res.render('error');
+                }
+                if (data) {
+                    res.render('task', { content: data.content, roomId: data.id });
+                } else {
+                    res.render('error');
+                }
+            });
         } else {
             res.render('error');
         }

@@ -5,17 +5,17 @@ passport.serializeUser(function (user, done) {
     done(null, user._id);
 });
 
-passport.deserializeUser(function ( id, done) {
-    User.findOne({_id: id}, function(err, user) {
+passport.deserializeUser(function (id, done) {
+    User.findOne({ _id: id }, function (err, user) {
         done(err, user);
     })
 });
 
 passport.use(new localStrategy({
-        usernameField: 'email',
-    },
-    function(username, password, done) {
-        User.findOne({email: username}, function(err, user) {
+    usernameField: 'email',
+},
+    function (username, password, done) {
+        User.findOne({ email: username }, function (err, user) {
             if (err) return done(err);
             if (!user) {
                 return done(null, false, {
@@ -29,5 +29,5 @@ passport.use(new localStrategy({
             }
             return done(null, user);
         })
-    }  
+    }
 ));

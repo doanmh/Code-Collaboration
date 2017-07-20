@@ -1,10 +1,10 @@
 var passport = require('passport');
 
-exports.getLogin = function(req, res, next) {
-    res.render('login', {title: 'Login to you account'});
+exports.getLogin = function (req, res, next) {
+    res.render('login', { title: 'Login to you account' });
 }
 
-exports.postLogin = function(req, res, next) {
+exports.postLogin = function (req, res, next) {
     req.checkBody('email', 'Invalid Email').isEmail();
     req.checkBody('password', 'Empty Password').notEmpty();
 
@@ -15,15 +15,15 @@ exports.postLogin = function(req, res, next) {
             errorMessages: errors
         });
     }
-    
-    passport.authenticate('local', function(err, user, info) {
+
+    passport.authenticate('local', function (err, user, info) {
         if (err) {
             return next(user);
         }
         if (!user) {
             return res.redirect('/login');
         }
-        req.logIn(user, function(err) {
+        req.logIn(user, function (err) {
             if (err) {
                 return next(err);
             }
@@ -32,11 +32,11 @@ exports.postLogin = function(req, res, next) {
     })(req, res, next);
 }
 
-exports.getRegister = function(req, res, next) {
-    res.render('register', {title: 'Register a new account'});
+exports.getRegister = function (req, res, next) {
+    res.render('register', { title: 'Register a new account' });
 }
 
-exports.postRegister = function(req, res, next) {
+exports.postRegister = function (req, res, next) {
     req.checkBody('name', 'Empty Name').notEmpty();
     req.checkBody('email', 'Invalid Email').isEmail();
     req.checkBody('password', 'Empty Password').notEmpty();
@@ -66,7 +66,7 @@ exports.postRegister = function(req, res, next) {
     }
 }
 
-exports.getLogout = function(req, res) {
+exports.getLogout = function (req, res) {
     req.logout();
     res.redirect('/');
 }
