@@ -1,3 +1,17 @@
 exports.getIndex = function (req, res) {
-    res.render('index', { title: 'Express' });
+    if (req.isAuthenticated()) {
+        Task.find({
+            _id: { $in: req.user.tasks }
+        }, function (err, tasks) {
+            if (err) {
+                console.log(err);
+                res.render('error');
+            } else {
+                userTasks = tasks;
+                res.render('index', { title: 'Express', tasks: tasks });
+            }
+        });
+    } else {
+         res.render('index', { title: 'Express'});
+    }
 }

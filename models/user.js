@@ -12,7 +12,8 @@ var userSchema = mongoose.Schema({
         required: true,
     },
     hash: String,
-    salt: String
+    salt: String,
+    tasks: []
 });
 
 userSchema.methods.setPassword = function (password) {

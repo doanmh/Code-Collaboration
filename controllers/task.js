@@ -8,7 +8,17 @@ exports.createTask = function (req, res) {
         } else {
             res.redirect('/task/' + data._id);
         }
+    });
+
+    User.update({ _id: req.session.passport.user}, {
+        $push: {tasks: newTask._id}
+    }, function(err, user) {
+        if (err) {
+            console.log(err);
+            res.render('error');
+        }
     })
+
 };
 
 exports.getTask = function (req, res) {
