@@ -57,7 +57,7 @@ exports.postRegister = function (req, res, next) {
         user.save(function (err) {
             if (err) {
                 res.render('register', {
-                    errorMessages: errors,
+                    errorMessages: err,
                 });
             } else {
                 res.redirect('/login');

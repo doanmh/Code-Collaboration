@@ -1,23 +1,37 @@
 exports.createTask = function (req, res) {
-    var newTask = new Task();
+    if (req.isAuthenticated()) {
+        req.checkBody('name', 'Empty Name').notEmpty();
 
-    newTask.save(function (err, data) {
-        if (err) {
-            console.log(err);
-            res.render('error');
-        } else {
-            res.redirect('/task/' + data._id);
-        }
-    });
+        var errors = req.validationErrors();
 
-    User.update({ _id: req.session.passport.user}, {
-        $push: {tasks: newTask._id}
-    }, function(err, user) {
-        if (err) {
-            console.log(err);
-            res.render('error');
+        if (errors) {
+            return res.redirect('/');
         }
-    })
+
+        var newTask = new Task();
+        newTask.name = req.body.name;
+        newTask.description = req.body.description;
+        newTask.date = (new Date()).toString();
+        newTask.save(function (err, data) {
+            if (err) {
+                console.log(err);
+                res.render('index', {
+                    errorMessages: err
+                });
+            } else {
+                res.redirect('/task/' + data._id);
+            }
+        });
+
+        User.update({ _id: req.session.passport.user }, {
+            $push: { tasks: newTask._id }
+        }, function (err, user) {
+            if (err) {
+                console.log(err);
+                res.render('error');
+            }
+        });
+    }
 
 };
 
@@ -30,7 +44,7 @@ exports.getTask = function (req, res) {
                     res.render('error');
                 }
                 if (data) {
-                    res.render('task', { content: data.content, roomId: data.id });
+                    res.render('task', { content: data.content, description: data.description, roomId: data.id });
                 } else {
                     res.render('error');
                 }

@@ -65,7 +65,7 @@ app.post('/login', authController.postLogin);
 app.get('/register', authController.getRegister);
 app.post('/register', authController.postRegister);
 app.get('/logout', authController.getLogout);
-app.get('/createTask', taskController.createTask);
+app.post('/', taskController.createTask);
 app.get('/task/:id', taskController.getTask);
 
 // catch 404 and forward to error handler

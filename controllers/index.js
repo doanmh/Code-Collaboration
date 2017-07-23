@@ -7,7 +7,6 @@ exports.getIndex = function (req, res) {
                 console.log(err);
                 res.render('error');
             } else {
-                userTasks = tasks;
                 res.render('index', { title: 'Express', tasks: tasks });
             }
         });

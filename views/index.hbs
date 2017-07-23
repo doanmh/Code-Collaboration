@@ -2,15 +2,33 @@
 <p>Welcome to {{title}}</p>
 
 {{#if user}}
-<a href="/createTask" class="btn btn-primary">Create New Task</a>
+<form class="form-signin" method="post">
+    {{#each errorMessages}}
+        <div class="alert alert-danger">
+            {{this.msg}}
+        </div>
+    {{/each}}
+    <h2 class="form-signin-heading text-center">Create new task</h2>
+    <br/>
+
+    <input type="text" name="name" class="form-control" placeholder="Task Name" required autofocus="">
+    <br/>
+    <input type="text" name="description" class="form-control" placeholder="Description (optional)">
+    <br/>
+
+    <button type="submit" class="btn btn-lg btn-primary btn-block">Create New Task</button>
+</form>
 <br>
 <br> 
-{{#if tasks}}
+
 <h2>Your tasks</h2>
+{{#if tasks}}
 <div class="list-group">
     {{#each tasks}}
-        <a href="/task/{{this._id}}" class="list-group-item">{{this._id}}</a>
+        <a href="/task/{{this._id}}" class="list-group-item">{{this.name}} - Created on: {{this.date}}</a>
     {{/each}}
 </div>
+{{else}}
+<p> You currently have to task! </p>
 {{/if}}
 {{/if}}
