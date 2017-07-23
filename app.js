@@ -67,6 +67,7 @@ app.post('/register', authController.postRegister);
 app.get('/logout', authController.getLogout);
 app.post('/', taskController.createTask);
 app.get('/task/:id', taskController.getTask);
+app.get('/about', indexController.getAbout)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
