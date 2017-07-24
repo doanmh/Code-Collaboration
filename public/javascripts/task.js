@@ -22,12 +22,7 @@ socket.on('doc', function (obj) {
     init(obj.str, obj.revision, obj.clients, new SocketIOAdapter(socket));
 });
 
-var username = $("#chatbox-username").text();
-if (username === "") {
-    var userId = Math.floor(Math.random() * 9999).toString();
-    username = "User" + userId;
-    $("#chatbox-username").text(username);
-};
+var username = $("#chatbox-username").text().trim();
 
 var roomId = $("#roomId").val();
 socket.emit('joinRoom', { room: roomId, username: username });
