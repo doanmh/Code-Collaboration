@@ -3,6 +3,7 @@ var taskSchema = new mongoose.Schema({
     name: String,
     description: String,
     content: String,
+    owner: String,
     date: String
 });
 

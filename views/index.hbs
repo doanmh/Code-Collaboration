@@ -22,7 +22,8 @@
 {{#if tasks}}
 <div class="list-group">
     {{#each tasks}}
-        <a href="/task/{{this._id}}" class="list-group-item">{{this.name}} - Created on: {{this.date}}</a>
+        <a href="/task/{{this._id}}" class="list-group-item col-md-9">{{this.name}} - Created on: {{this.date}}</a>
+        <a href="/delete/task/{{this._id}}" class="list-group-item col-md-3">Delete {{this.name}}</a>
     {{/each}}
 </div>
 {{else}}

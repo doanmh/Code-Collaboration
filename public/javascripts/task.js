@@ -23,6 +23,7 @@ socket.on('doc', function (obj) {
 });
 
 var username = $("#chatbox-username").text().trim();
+var userId = $("#userId").val();
 
 var roomId = $("#roomId").val();
 socket.emit('joinRoom', { room: roomId, username: username });
@@ -49,7 +50,7 @@ socket.on('chatMessage', function (data) {
 // Compatibility shim
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 // PeerJS object
-var peer = new Peer(username.trim() + roomId, { key: '' });
+var peer = new Peer(userId + roomId, { key: 'asvjxc0rszudte29' });
 peer.on('open', function () {
     $('#my-id').text(peer.id);
 });
