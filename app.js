@@ -91,7 +91,7 @@ app.use(function (err, req, res, next) {
 var port = process.env.PORT || 3000;
 app.set('port', port);
 var server = http.createServer(app);
-require('./socket-server')(server);
+require('./socket')(server);
 server.listen(port);
 
 module.exports = app;

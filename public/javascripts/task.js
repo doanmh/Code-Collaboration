@@ -2,6 +2,7 @@ var EditorClient = ot.EditorClient;
 var SocketIOAdapter = ot.SocketIOAdapter;
 var CodeMirrorAdapter = ot.CodeMirrorAdapter;
 
+var PEERJSKEY = '';
 var socket = io.connect('http://localhost:3000');
 var editor = CodeMirror.fromTextArea(document.getElementById("code-screen"), {
     lineNumbers: true,
@@ -50,7 +51,7 @@ socket.on('chatMessage', function (data) {
 // Compatibility shim
 navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 // PeerJS object
-var peer = new Peer(userId + roomId, { key: 'asvjxc0rszudte29' });
+var peer = new Peer(userId + roomId, { key: PEERJSKEY });
 peer.on('open', function () {
     $('#my-id').text(peer.id);
 });
