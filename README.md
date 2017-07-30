@@ -11,11 +11,11 @@ This platform now support real-time chatting and video calling so users can easi
 
 There are currently some essential featured implemented to this platform.
 
-..* Create task and share it with other user
-..* Collaboratively editing the task
-..* Video calling and chatting are supported to provide real-time communication (Video calling can only work with two user)
-..* The content in the editor is automatically saved while user editing
-..* Display what other users are editing or selecting
+* Create task and share it with other user
+* Collaboratively editing the task
+* Video calling and chatting are supported to provide real-time communication (Video calling can only work with two user)
+* The content in the editor is automatically saved while user editing
+* Display what other users are editing or selecting
 
 # Developing
 
